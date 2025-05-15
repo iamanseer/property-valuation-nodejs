@@ -52,6 +52,11 @@ app.post('/api/transactions', (req, res) => {
     });
 });
 
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
