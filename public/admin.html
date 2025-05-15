@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Kaye & Co</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <h2>Add Transaction</h2>
+  <div>
+    <label>Location: <input type="text" id="location"></label><br>
+    <label>Project: <input type="text" id="project"></label><br>
+    <label>Type: <select id="property_type"><option>Apartment</option><option>Villa</option></select></label><br>
+    <label>Size (sq ft): <input type="number" id="size"></label><br>
+    <label>Bedrooms: <input type="number" id="bedrooms"></label><br>
+    <label>Price (AED): <input type="number" id="price"></label><br>
+    <label>Date: <input type="date" id="date"></label><br>
+    <button onclick="addTransaction()">Add</button>
+  </div>
+  <h2>Transactions</h2>
+  <table id="transactionsTable">
+    <thead><tr><th>ID</th><th>Location</th><th>Project</th><th>Type</th><th>Size</th><th>Bedrooms</th><th>Price</th><th>Date</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    async function loadTransactions() {
+      const res = await fetch('/api/transactions');
+      const transactions = await res.json();
+      const tbody = document.querySelector('#transactionsTable tbody');
+      tbody.innerHTML = transactions.map(t => <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>).join('');
+    }
+
+    async function addTransaction() {
+      const data = {
+        location: document.getElementById('location').value,
+        project: document.getElementById('project').value,
+        property_type: document.getElementById('property_type').value,
+        size: parseInt(document.getElementById('size').value),
+        bedrooms: parseInt(document.getElementById('bedrooms').value),
+        price: parseFloat(document.getElementById('price').value),
+        date: document.getElementById('date').value
+      };
+      await fetch('/api/transactions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      loadTransactions();
+    }
+
+    loadTransactions();
+  </script>
+</body>
+</html>

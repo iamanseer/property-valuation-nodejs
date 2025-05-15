@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background: #f2f2f2;
+}
+.section {
+  margin-bottom: 20px;
+}
+.error {
+  color: #ff0000;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+.success {
+  color: #4CAF50;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+#addButton, #uploadButton {
+  position: relative;
+}
+.loading::after {
+  content: 'Loading...';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.1);
+}
